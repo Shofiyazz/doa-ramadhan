@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasbih Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;700;900&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+h1{
+    text-align: center;
+    color: rgb(179, 172, 137);
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 50px;
+}   
+h4{
+    text-align: center;
+    color: rgba(240, 248, 255, 0.612);
+    font-style: italic;
+    font-family: unset;
+    font-weight: lighter;
+}
+.target-section{
+    text-align: center;
+    color: rgb(176, 171, 150);
+    font-family: initial;
+}
+.counter-section{
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 150px;
+    font-weight: bold;
+    color: rgb(195, 227, 216);
+    text-shadow: 0px 0px 20px rgba(247, 195, 83, 0.4);   
+}
+.notification-area{
+    text-align: center;
+    font-family: unset;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255)   
+}
+.control-section{
+    text-align: center;
+    color: rgb(202, 226, 226);
+}
+.btn-add{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    font-size: 100px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 150px;
+    font-weight: bold;
+    line-height: 130px;
+    border-color: grey;
+    background-color: #a88618;
+    color: #003333;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 0px 20px rgba(247, 195, 83, 0.4);
+}
+.btn-less{
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 60px;
+    line-height: 10px;
+    background-color: transparent;
+    border: 2px solid rgba(223, 217, 182, 0.4);
+    color: rgb(248, 247, 236);
+}
+.target-selector{
+    width: 80px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: transparent;
+    border: 2px solid rgba(223, 217, 182, 0.4);
+    color: rgb(174, 152, 31);
+    font-weight: bold;
+}
+.btn-reset{
+    width: 80px;
+    height: 45px;
+    border-radius: 8px;
+    transform: translateY(-15px);
+    margin-left: 30px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    background-color: transparent;
+    border: 2px solid rgba(223, 217, 182, 0.4);
+    color: rgb(245, 245, 242);
+}
+.btn-add:hover{
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+.btn-less:hover{
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+.btn-reset:hover{
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+
+.btn-add:active{
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+.btn-less:active{
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+.btn-reset:active{
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+body{
+    background-color: rgb(0, 80, 80);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+.wrapper{
+    flex: 1;
+}
+footer{
+    text-align: center;
+    padding: 20px;   
+}
+
+    </style>
+</head>
+<body>
+    <header >
+        <h1>Tasbih Digital</h1>
+        <h4>Tekan tombol untuk menghitung.
+             Notifikasi akan muncul saat target tercapai.
+           </h4>
+    </header>
+
+    <main>
+        <section>
+             <div id="pilihan-target" class="target-section">
+                <span class="target-label">Target Dzikir:</span> <br> <br>
+                <select class="target-selector">
+                    <option value="11">11</option>
+                    <option value="33">33</option>
+                    <option value="99">99</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <br>
+
+            <div class="counter-section">
+                <div id="tampilan-Angka" class="count-number">0</div>
+            </div>
+
+             <div class="notification-area">
+                <p id="pesan-notif" class="notif-message">Alhamdulillah, Target Tercapai! </p>
+            </div>
+
+            <br>
+
+            <div class="control-section">
+                <button id="tombol-Tambah" class="btn-add" aria-label="Tambah Hitungan">+</button> <br> <br>
+                <button id="tombol-Kurang" class="btn-less" aria-label="Kurang Hitungan">-</button>  
+                <button id="tombol-Reset" class="btn-reset">Reset</button>
+            </div>
+
+        </section>
+    </main>
+    <footer>
+        @ 2026 Website Dzikir
+    </footer>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tampilanAngka = document.getElementById("tampilan-Angka")
+        const tombolTambah = document.getElementById("tombol-Tambah")
+        const tombolKurang = document.getElementById("tombol-Kurang")
+        const tombolReset = document.getElementById("tombol-Reset")
+        const pilihanTarget = document.querySelector(".target-selector");
+        const pesanNotif = document.getElementById("pesan-notif");
+        const suaraKlik = new Audio('beep sound.mp3'); 
+        const suaraNotif = new Audio('notification.mp3');
+       
+
+        let angkaAwal = 0
+        pesanNotif.style.display = "none";
+
+        function notifikasi(){
+            const target = parseInt(pilihanTarget.value);
+            if (angkaAwal >= target) {
+                pesanNotif.style.display = "block";
+            }
+            if (angkaAwal === target) {
+            suaraNotif.currentTime = 0;
+            suaraNotif.play();
+            }
+            else{
+                pesanNotif.style.display = "none";
+            }
+        }
+
+        tombolTambah.addEventListener("click", angkaBertambah)
+        function angkaBertambah(){
+            angkaAwal++;
+            tampilanAngka.innerText = angkaAwal;
+            suaraKlik.currentTime = 0; 
+            suaraKlik.play();
+            tampilanAngka.style.color = "white";
+            setTimeout(function() {
+            tampilanAngka.style.color = "#d4af37";
+            }, 100);
+            notifikasi()
+        }
+
+        tombolKurang.addEventListener("click", angkaBerkurang)
+        function angkaBerkurang(){
+            if (angkaAwal>0){
+            angkaAwal--;
+            tampilanAngka.innerText = angkaAwal;
+            notifikasi()
+            }
+        }
+
+        tombolReset.addEventListener("click", angkaKembali)
+        function angkaKembali(){
+            angkaAwal = 0
+            tampilanAngka.innerText = angkaAwal;
+            notifikasi()
+        }
+
+         pilihanTarget.addEventListener("change", function() {
+                notifikasi();
+            });
+
+    })
+
+    </script>
+    
+</body>
+</html>
