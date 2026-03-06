@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Dzakat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+
+header{
+    text-align: center;
+    padding: 40px 20px 20px 20px;
+}
+
+h1{
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 10px 0;
+}
+
+.teks-zakat{
+    color: #d1b16c;
+}
+
+.info{
+    color: white;
+    font-style: italic;
+}
+
+.layout-utama{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+    .layout-utama {
+        flex-direction: row; 
+            }
+    }
+
+.kalkulator, .digital{
+    color: white;
+}
+
+.zakat{
+    color: goldenrod;
+}
+
+.calculator-container{
+    width: 250px;
+    flex: 1.2;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 20px 30px 50px 30px;
+}
+
+.hasil-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.calculator-container, .result-box, .niat-box{
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image: linear-gradient(135deg, #0a3d41 0%, #1a5e61 100%);
+}
+
+footer{
+    text-align: center;
+    padding: 20px; 
+    margin-top: 60px;  
+}
+
+label{
+    display: inline-block;
+    font-weight: 600;
+    font-size: 15px;
+    color: #0a3d41;   
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-sizing: border-box; 
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.tombol-hitung{
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box; 
+    border-radius: 6px; 
+    background-color: #d1b16c; 
+    color: #0a3d41; 
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.result-box h3 { margin-top: 0; color: #0a3d41; margin-bottom: 20px;}
+.angka-tebal { font-weight: bold; float: right; }
+.zakat-amount { font-size: 16px; font-weight: bold; color: #0a3d41; margin-top: 20px;}
+.angka-zakat-nominal { font-size: 28px; font-weight: 800; color: #d1b16c; display: block; margin-top: 5px; }
+
+.status-wajib { 
+    color: #dc2626; 
+    background-color: #fee2e2; 
+    font-weight: bold; 
+    float: right; 
+    padding: 2px 10px; 
+    border-radius: 20px;
+}
+
+.status-tidak { 
+    color: #059669; 
+    background-color: #d1fae5; 
+    font-weight: bold; 
+    float: right; 
+    padding: 4px 12px; 
+    border-radius: 20px;
+}
+
+    </style>
+</head>
+<body>
+ <header>
+        <h1>Kalkulator <span class="teks-zakat">Zakat</span> Digital</h1>
+        
+        <p class="info">Hitung zakat anda dengan mudah dan praktis.</p>
+    </header>
+
+    <main class="layout-utama">
+        <section class="calculator-container">
+            <div class="form-group">
+                <label for="jenis-zakat">Jenis Zakat</label><br>
+                <select id="jenis-zakat">
+                    <option value="penghasilan">Zakat Penghasilan</option>
+                    <option value="emas">Zakat Emas</option>
+                </select>
+            </div>
+
+            <div class="form-harga">
+                <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 20px; color: goldenrod; margin-right: 2px;">database</span>
+                <label for="harga-emas">Harga Emas Saat Ini (per gram)</label><br>
+                <input type="text" inputmode="numeric" class="format-uang" id="harga-emas" placeholder="Contoh: 1000000" min="0" required>
+            </div>
+
+            <div id="form-penghasilan" class="dynamic-form">
+                <div class="form-group">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 20px; color: green; margin-right: 2px;">payments</span>
+                    <label for="gaji">Gaji / Penghasilan Utama per Bulan</label><br>
+                    <input type="text" inputmode="numeric" class="format-uang" id="gaji" placeholder="Contoh: 5000000" min="0">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 20px; color: brown; margin-right: 2px;">wallet</span>
+                    <label for="penghasilan-lain">Penghasilan Lain per Bulan (Opsional)</label><br>
+                    <input type="text" inputmode="numeric" class="format-uang" id="penghasilan-lain" placeholder="Contoh: 1000000" min="0">
+                </div>
+            </div>
+
+            <div id="form-emas" class="dynamic-form" style="display: none;">
+                <div class="form-group">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 20px; color: green; margin-right: 2px;">payments</span>
+                    <label for="total-emas">Jumlah Emas yang Dimiliki (gram)</label>
+                    <input type="text" inputmode="numeric" class="format-uang" id="total-emas" placeholder="Contoh: 100" min="0">
+                </div>
+            </div>
+            <br>
+
+            <button class="tombol-hitung" id="btn-hitung">Hitung Zakat <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 26px; color: darkslategray; margin-top: -3px; margin-left: 2px;">calculate</span></button>
+            </section> <section class="hasil-container">
+
+            <div id="hasil-perhitungan" class="result-box">
+                <h3>Hasil Perhitungan</h3>
+                <p>Total Harta: <span id="res-total">Rp 0</span></p>
+                <p>Nilai Nisab per Bulan (85g): <span id="res-nisab">Rp 0</span></p>
+                <p>Status: <span id="res-status">-</span></p>
+                <p class="zakat-amount">Zakat: <span id="res-zakat">Rp 0</span></p>
+            </div>
+
+            <div id="kartu-niat" class="niat-box" style="display: none; background-color: white; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <h3 style="color: #0a3d41;">Niat & Tata Cara</h3>
+                <p dir="rtl" style="font-size: 20px; text-align: right;">نَوَيْتُ أَنْ أُخْرِجَ زَكَاةَ مَالِى فَرْضًا لِلَّهِ تَعَالَى</p>
+                <p style="font-style: italic;">"Nawaitu an ukhrija zakaata maalii fardhan lillaahi ta'aalaa."</p>
+                <p style="font-size: 14px;">"Saya berniat mengeluarkan zakat hartaku fardu karena Allah Ta'ala."</p>
+                <hr style="border: 0.5px solid #eee; margin: 15px 0;">
+                <h4 style="margin-bottom: 5px;">Tata Cara:</h4>
+                <ol style="font-size: 14px; padding-left: 20px; margin-top: 0;">
+                    <li>Pastikan harta mencapai nisab.</li>
+                    <li>Pisahkan zakat sebesar 2,5%.</li>
+                    <li>Baca niat di atas.</li>
+                    <li>Salurkan melalui Amil Zakat resmi atau langsung ke Mustahik.</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kalkulator Zakat Web App</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const jenisZakat = document.getElementById('jenis-zakat')
+        const formPenghasilan = document.getElementById('form-penghasilan')
+        const formEmas = document.getElementById('form-emas')
+        const tombolHitung = document.getElementById('btn-hitung')
+        const hasilHitung = document.getElementById('hasil-perhitungan')
+        const kotakNiat = document.getElementById("kartu-niat")
+
+        const inputsUang = document.querySelectorAll('.format-uang');
+            inputsUang.forEach(function(input) {
+                input.addEventListener('input', function(e) {
+                    let angkaMurni = this.value.replace(/[^0-9]/g, '');
+                    if (angkaMurni !== '') {
+                        this.value = new Intl.NumberFormat('id-ID').format(angkaMurni);
+                    } else {
+                        this.value = '';
+                    }
+                });
+            });
+
+            const getAngkaMurni = (id) => {
+                let nilaiForm = document.getElementById(id).value;
+                let angka = nilaiForm.replace(/\./g, ''); 
+                return parseFloat(angka) || 0;
+            };
+
+        const formatRupiah = (angka) => {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    maximumFractionDigits: 0
+                }).format(angka);
+            };
+
+        jenisZakat.addEventListener('change', function() {
+                if (jenisZakat.value === 'penghasilan') {
+                    formPenghasilan.style.display = 'block';
+                    formEmas.style.display = 'none';
+                } else {
+                    formPenghasilan.style.display = 'none';
+                    formEmas.style.display = 'block';
+                }
+                kotakNiat.style.display = 'none';
+
+                })
+
+        tombolHitung.addEventListener('click', function(){
+            const hargaEmas = getAngkaMurni('harga-emas')
+            const jenis = jenisZakat.value
+
+            if (hargaEmas <= 0) {
+                alert('Mohon masukkan Harga Emas dengan nominal yang valid.');
+                return;
+            }
+
+            let nisab = 0;
+            let totalHarta = 0;
+            let zakat = 0;
+            let statusText = '';
+            let statusClass = '';
+
+            if(jenis === 'penghasilan'){
+                nisab = (hargaEmas * 85) / 12;
+                const gaji = getAngkaMurni('gaji')
+                const penghasilanLain = getAngkaMurni('penghasilan-lain') 
+                totalHarta = gaji + penghasilanLain;
+            }
+            else if(jenis === 'emas'){
+                nisab = hargaEmas * 85;
+                const emas = getAngkaMurni('total-emas')
+                totalHarta = emas*hargaEmas
+            }
+
+            if(totalHarta >= nisab){
+                statusText = 'Wajib Zakat';
+                statusClass = 'status-wajib';
+                zakat = totalHarta * 0.025;
+                kotakNiat.style.display = 'block';
+            }
+            else{
+                statusText = 'Belum Wajib Zakat';
+                statusClass = 'status-tidak';
+                zakat = 0;
+                kotakNiat.style.display = 'none';
+            }
+
+            document.getElementById('res-total').textContent = formatRupiah(totalHarta);
+            document.getElementById('res-nisab').textContent = formatRupiah(nisab);
+            document.getElementById('res-zakat').textContent = formatRupiah(zakat);
+
+            const elStatus = document.getElementById('res-status');
+            elStatus.textContent = statusText;
+            elStatus.className = statusClass;
+  
+        })
+
+        })
+
+    </script>
+    
+</body>
+</html>
