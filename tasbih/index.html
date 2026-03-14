@@ -4,140 +4,288 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasbih Digital</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;700;900&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:wght@400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
     <style>
-
-h1{
-    text-align: center;
-    color: rgb(179, 172, 137);
-    font-family: 'Playfair Display', sans-serif;
-    font-size: 50px;
-}   
-h4{
-    text-align: center;
-    color: rgba(240, 248, 255, 0.612);
-    font-style: italic;
-    font-family: unset;
-    font-weight: lighter;
-}
-.target-section{
-    text-align: center;
-    color: rgb(176, 171, 150);
-    font-family: initial;
-}
-.counter-section{
-    text-align: center;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 150px;
-    font-weight: bold;
-    color: rgb(195, 227, 216);
-    text-shadow: 0px 0px 20px rgba(247, 195, 83, 0.4);   
-}
-.notification-area{
-    text-align: center;
-    font-family: unset;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(255, 255, 255)   
-}
-.control-section{
-    text-align: center;
-    color: rgb(202, 226, 226);
-}
-.btn-add{
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    font-size: 100px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 150px;
-    font-weight: bold;
-    line-height: 130px;
-    border-color: grey;
-    background-color: #a88618;
-    color: #003333;
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
-    text-shadow: 0px 0px 20px rgba(247, 195, 83, 0.4);
-}
-.btn-less{
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin-right: 20px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 60px;
-    line-height: 10px;
-    background-color: transparent;
-    border: 2px solid rgba(223, 217, 182, 0.4);
-    color: rgb(248, 247, 236);
-}
-.target-selector{
-    width: 80px;
-    height: 40px;
-    border-radius: 8px;
-    background-color: transparent;
-    border: 2px solid rgba(223, 217, 182, 0.4);
-    color: rgb(174, 152, 31);
-    font-weight: bold;
-}
-.btn-reset{
-    width: 80px;
-    height: 45px;
-    border-radius: 8px;
-    transform: translateY(-15px);
-    margin-left: 30px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    background-color: transparent;
-    border: 2px solid rgba(223, 217, 182, 0.4);
-    color: rgb(245, 245, 242);
-}
-.btn-add:hover{
-    filter: brightness(1.1);
-    cursor: pointer;
-}
-.btn-less:hover{
-    filter: brightness(1.1);
-    cursor: pointer;
-}
-.btn-reset:hover{
-    filter: brightness(1.1);
-    cursor: pointer;
+:root {
+    --primary-green: #0a3d41;
+    --secondary-green: #1a5e61;
+    --gold: #d4af37;
+    --gold-hover: #f0c94d;
+    --cream: #fdfbf7;
+    --text-light: #ffffff;
 }
 
-.btn-add:active{
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
+header {
+    background-image: url('https://www.transparenttextures.com/patterns/arabesque.png'), linear-gradient(135deg, #0a3d41 0%, #1a5e61 100%);
+    background-blend-mode: overlay;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-bottom: 2px solid var(--gold);
 }
-.btn-less:active{
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
+
+.navbar {
+    display: flex;
+    max-width: 1200px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    margin: 0 auto;
 }
-.btn-reset:active{
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
+
+.menu-checkbox {
+    display: none;
 }
-body{
-    background-color: rgb(0, 80, 80);
+
+.hamburger {
+    display: none;
+    font-size: 24px;
+    color: var(--gold);
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-menu a {
+    color: var(--text-light);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+    color: var(--gold);
+}
+
+@media screen and (max-width: 768px) {
+    .hamburger { display: block; }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--secondary-green);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    .menu-checkbox:checked ~ .nav-menu {
+        max-height: 400px;
+        border-bottom: 2px solid var(--gold);
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 15px;
+        text-align: center;
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+}
+
+body {
+    background-image: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+    font-family: 'Poppins', sans-serif;
+    color: var(--cream);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0;
-}
-.wrapper{
-    flex: 1;
-}
-footer{
-    text-align: center;
-    padding: 20px;   
+    padding: 0;
 }
 
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 5%;
+}
+
+h1 {
+    text-align: center;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}   
+
+h4 {
+    text-align: center;
+    color: rgba(253, 251, 247, 0.8);
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+.target-section {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.target-selector {
+    width: 90px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.target-selector option {
+    background-color: var(--secondary-green);
+    color: var(--cream);
+}
+
+.counter-section {
+    text-align: center;
+    font-size: 160px;
+    font-weight: 700;
+    color: var(--cream);
+    text-shadow: 0px 0px 30px rgba(212, 175, 55, 0.6); 
+    margin: 20px 0 0 0;
+    line-height: 1;
+}
+
+.notification-area {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold);
+    min-height: 27px;
+    margin-bottom: 5px;
+}
+
+.control-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.btn-add {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 100px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    background-color: var(--gold);
+    color: var(--primary-green);
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding-bottom: 10px;
+}
+
+.btn-less {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid var(--gold);
+    color: var(--cream);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding-bottom: 5px;
+}
+
+.btn-reset {
+    height: 45px;
+    padding: 0 25px;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: transparent;
+    border: 2px solid var(--gold);
+    color: var(--cream);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+}
+
+.btn-add:hover {
+    background-color: var(--gold-hover);
+    border-color: var(--gold-hover);
+    box-shadow: 0px 10px 30px rgba(212, 175, 55, 0.4);
+    transform: translateY(-3px);
+}
+
+.btn-less:hover, .btn-reset:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--gold);
+}
+
+.btn-add:active, .btn-less:active, .btn-reset:active {
+    transform: scale(0.95);
+}
+
+footer {
+    background: linear-gradient(135deg, #052224 0%, #0a3d41 100%);
+    color: var(--gold);
+    text-align: center;
+    padding: 30px 5%;
+    border-top: 2px solid var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-top: auto;
+}
     </style>
 </head>
 <body>
     <header >
+    <nav class="navbar">
+        <div class="nav-title">
+            <span class="logo-icon">R</span>
+            <p>Portal<br>Ramadhan:</p> 
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        
+        <label for="menu-toggle" class="hamburger">
+            &#9776;
+        </label>
+
+        <ul class="nav-menu">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="index.html" class="active">Doa</a></li>
+            <li><a href="../tasbih/index.html">Tasbih</a></li>
+            <li><a href="../kalkulator-zakat/index.html">Kalkulator Zakat</a></li>
+            <li><a href="../to-do-list/index.html">To-Do List</a></li>
+            <li><a href="../imsakiyah/index.html">Jadwal Imsakiyah</a></li>
+        </ul>
+    </nav>
         <h1>Tasbih Digital</h1>
         <h4>Tekan tombol untuk menghitung.
              Notifikasi akan muncul saat target tercapai.
@@ -177,7 +325,7 @@ footer{
         </section>
     </main>
     <footer>
-        @ 2026 Website Dzikir
+        @ 2026 Portal Ramadhan
     </footer>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -246,5 +394,4 @@ footer{
     </script>
     
 </body>
-
 </html>
